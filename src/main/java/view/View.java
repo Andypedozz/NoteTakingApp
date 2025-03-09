@@ -4,9 +4,9 @@ import javax.swing.JFrame;
 
 public class View {
 	
-	private JFrame frame;
+	private AppFrame frame;
 	
-	public View() {
-		
+	public void launchFrame() {
+		this.frame = new AppFrame();
 	}
 }
