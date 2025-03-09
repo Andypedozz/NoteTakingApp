@@ -1,13 +1,9 @@
 package view;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -50,6 +46,7 @@ public class PagePanel extends JPanel {
 		notePanel.setBounds((int) shifted.getX(), (int) shifted.getY(), NEW_NOTE_WIDTH, NEW_NOTE_HEIGHT);
 		this.notesPanel.add(notePanel);
 		this.notesPanel.revalidate();
+		this.revalidate();
 	}
 	
 	public void removeNote(NotePanel notePanel) {

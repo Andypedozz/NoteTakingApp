@@ -77,5 +77,9 @@ public class TextToolbar extends JPanel {
 	    this.add(lowerToolBar);
 	    this.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 	}
+	
+	private void initListeners() {
+		
+	}
 
 }
