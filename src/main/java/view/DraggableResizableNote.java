@@ -11,11 +11,13 @@ public class DraggableResizableNote extends JPanel {
     private boolean dragging = false;
     private int initialWidth;
     private int initialHeight;
+	private JTextArea textArea;
+	private JScrollPane scrollPane;
 
     public DraggableResizableNote() {
         setLayout(new BorderLayout());
-        JTextArea textArea = new JTextArea();
-        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea = new JTextArea();
+        scrollPane = new JScrollPane(textArea);
         add(scrollPane, BorderLayout.CENTER);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         
@@ -43,8 +45,6 @@ public class DraggableResizableNote extends JPanel {
             		setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
             	} else if (e.getX() <= BORDER_THICKNESS) {
             		setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-            	}else {
-            		setCursor(Cursor.getDefaultCursor());
             	}
             }
             
@@ -72,5 +72,13 @@ public class DraggableResizableNote extends JPanel {
         
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
+    }
+    
+    public String getText() {
+    	return this.textArea.getText();
+    }
+    
+    public void setText(String text) {
+    	this.textArea.setText(text);
     }
 }
