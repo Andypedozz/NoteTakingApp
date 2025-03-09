@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import model.Model;
 import model.Page;
 import sqllite.SQLiteHelper;
@@ -32,6 +31,7 @@ public class Controller {
 	public void start() {
 		createDatabase();
 		this.model = new Model();
+		loadData();
 		this.view = new View();
 		this.view.launchFrame();
 	}
@@ -71,16 +71,10 @@ public class Controller {
 		List<Map<String, Object>> pages = SQLiteHelper.executeGetQuery("SELECT * FROM Page");
 		
 		// Load pages
-		for(Map<String, Object> page : pages) {
-			int id = Integer.parseInt(String.valueOf(page.get("id")));
-			String titolo = String.valueOf(page.get("titolo"));
-			String creationDate = String.valueOf(page.get("creationDate"));
-			String lastModifiedDate = String.valueOf(page.get("lastModifiedDate"));
-			int index = Integer.parseInt(String.valueOf(page.get("index")));
-			Page page1 = new Page(id, titolo, creationDate, lastModifiedDate, index);
-			this.model.getPages().put(page1.getId(), page1);
+		for(Map<String, Object> map : pages) {
+			Page page = Page.parsePage(map);
+			this.model.getPages().put(page.getId(), page);
 		}
-		
 	}
 	
 	private String getPath(String str) {

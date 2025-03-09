@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Page {
 	
@@ -18,6 +19,16 @@ public class Page {
 		this.creationDate = creationDate;
 		this.lastModifiedDate = lastModifiedDate;
 		this.index = index;
+	}
+	
+	public static Page parsePage(Map<String, Object> map) {
+		int id = Integer.parseInt(String.valueOf(map.get("id")));
+		String titolo = String.valueOf(map.get("titolo"));
+		String creationDate = String.valueOf(map.get("creationDate"));
+		String lastModifiedDate = String.valueOf(map.get("lastModifiedDate"));
+		int index = Integer.parseInt(String.valueOf(map.get("index")));
+		Page page = new Page(id, titolo, creationDate, lastModifiedDate, index);
+		return page;
 	}
 
 	public int getId() {
