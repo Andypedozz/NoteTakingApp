@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ResizableTextArea extends JPanel {
-    private JTextArea textArea;
+    private JTextArea textPane;
     private int mouseX, mouseY;
     private boolean resizing;
 
@@ -13,8 +13,8 @@ public class ResizableTextArea extends JPanel {
         setLayout(new BorderLayout());
 
         // Crea un'area di testo
-        textArea = new JTextArea(10, 30);
-        JScrollPane scrollPane = new JScrollPane(textArea);
+        textPane = new JTextArea(10, 30);
+        JScrollPane scrollPane = new JScrollPane(textPane);
         add(scrollPane, BorderLayout.CENTER);
 
         // Aggiungi un listener per il ridimensionamento
@@ -44,21 +44,11 @@ public class ResizableTextArea extends JPanel {
 
                     // Ridimensiona il pannello e la JTextArea
                     setSize(getWidth() + deltaX, getHeight() + deltaY);
-                    textArea.setSize(getWidth() + deltaX - 30, getHeight() + deltaY - 30); // Minus the scroll bar space
+                    textPane.setSize(getWidth() + deltaX - 30, getHeight() + deltaY - 30); // Minus the scroll bar space
                     mouseX = e.getX();
                     mouseY = e.getY();
                 }
             }
-        });
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Resizable TextArea");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 300);
-            frame.add(new ResizableTextArea());
-            frame.setVisible(true);
         });
     }
 }

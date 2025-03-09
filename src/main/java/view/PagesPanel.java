@@ -25,8 +25,4 @@ public class PagesPanel extends JTabbedPane {
 			this.addTab(value.getTitolo(), pagePanel);
 		});
 	}
-	
-	public void showPage(Page page) {
-		
-	}
 }

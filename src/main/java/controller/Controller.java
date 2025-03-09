@@ -38,7 +38,6 @@ public class Controller {
 	
 	private void createDatabase() {
 		try {
-			File dbFile = new File("database.db");
 			SQLiteHelper.connect();
 			
 			// Create Schema

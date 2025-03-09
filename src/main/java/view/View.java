@@ -8,12 +8,10 @@ public class View {
 	
 	public void launchFrame() {
 	    try {
-            // Set cross-platform Java L&F (also called "Metal")
-	        UIManager.setLookAndFeel(
-            UIManager.getCrossPlatformLookAndFeelClassName());
+	        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 	    } 
 	    catch (Exception e) {
-	       // handle exception
+	    	e.printStackTrace();
 	    }
 		this.frame = new AppFrame();
 	}
