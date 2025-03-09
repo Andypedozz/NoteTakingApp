@@ -10,6 +10,8 @@ import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 
 import controller.Controller;
 import model.Note;
@@ -33,6 +35,8 @@ public class PagePanel extends JPanel {
 		this.notesPanel = new JPanel();
 		this.notesPanel.setLayout(null);
 		this.scrollPane = new JScrollPane(notesPanel);
+		this.scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		this.add(scrollPane);
 	}
 	
@@ -43,9 +47,7 @@ public class PagePanel extends JPanel {
 	public void addNote(Point point) {
 		Point shifted = shiftCoordinates(point);
 		NotePanel notePanel = new NotePanel();
-		notePanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 		notePanel.setBounds((int) shifted.getX(), (int) shifted.getY(), NEW_NOTE_WIDTH, NEW_NOTE_HEIGHT);
-		notePanel.setText("Ciao");
 		this.notesPanel.add(notePanel);
 		this.notesPanel.revalidate();
 	}
@@ -58,16 +60,9 @@ public class PagePanel extends JPanel {
 		this.notesPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Point point = e.getLocationOnScreen();
-				addNote(point);
-			}
-		});
-
-		this.scrollPane.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Point point = e.getLocationOnScreen();
-				addNote(point);
+				if(SwingUtilities.isLeftMouseButton(e)) {
+					addNote(e.getLocationOnScreen());
+				}
 			}
 		});
 	}

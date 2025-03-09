@@ -29,7 +29,7 @@ public class Controller {
 	}
 	
 	public void start() {
-		createDatabase();
+//		createDatabase();
 		this.model = new Model();
 		loadData();
 		this.view = new View();

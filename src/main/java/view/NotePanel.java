@@ -1,6 +1,6 @@
 package view;
 
-public class NotePanel extends ResizableTextArea {
+public class NotePanel extends DraggableResizableNote {
 	
 	private String text;
 	
