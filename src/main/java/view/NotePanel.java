@@ -46,7 +46,7 @@ public class NotePanel extends JPanel {
 				if(isCursorOnRight(e)) {
 					resizing = true;
 					dragging = false;
-				}else if(isCursorOnLeft(e)) {
+				}else if(isCursorOnLeft(e) || isCursorOnTop(e) || isCursorOnBottom(e)) {
 					resizing = false;
 					dragging = true;
 				}
@@ -55,7 +55,7 @@ public class NotePanel extends JPanel {
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				if(isCursorOnLeft(e)) {
+				if(isCursorOnLeft(e) || isCursorOnTop(e) || isCursorOnBottom(e)) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 				}else if(isCursorOnRight(e)) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
@@ -117,16 +117,23 @@ public class NotePanel extends JPanel {
     	return xCondition && yCondition;
     }
     
-    public static void main(String[] args) {
-    	JFrame frame = new JFrame();
-    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	frame.setSize(600,400);
-    	frame.setLocationRelativeTo(null);
+    private boolean isCursorOnTop(MouseEvent e) {
+    	int mouseX = e.getX();
+    	int mouseY = e.getY();
     	
-    	NotePanel note = new NotePanel();
-    	note.setBounds(20,20,300,300);
-    	frame.setLayout(null);
-    	frame.add(note);
-    	frame.setVisible(true);
+    	boolean xCondition = (mouseX >= 0 && mouseX <= getWidth());
+    	boolean yCondition = (mouseY >= 0 && mouseY <= BORDER_SIZE);
+    	
+    	return xCondition && yCondition;
+    }
+    
+    private boolean isCursorOnBottom(MouseEvent e) {
+    	int mouseX = e.getX();
+    	int mouseY = e.getY();
+    	
+    	boolean xCondition = (mouseX >= 0 && mouseX <= getWidth());
+    	boolean yCondition = (mouseY >= getHeight() - BORDER_SIZE && mouseY <= getHeight());
+    	
+    	return xCondition && yCondition;
     }
 }
