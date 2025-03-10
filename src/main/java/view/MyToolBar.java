@@ -1,20 +1,36 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.Controller;
+
 public class MyToolBar extends JPanel {
+	private Controller controller;
 	private TextToolbar textToolbar;
+	private JButton saveButton;
 	
 	public MyToolBar() {
 		init();
 	}
 
 	private void init() {
+		this.controller = Controller.getInstance();
+		this.setLayout(new BorderLayout());
 		this.textToolbar = new TextToolbar();
-		this.setLayout(new GridLayout(1,1));
-		this.add(textToolbar);
+		this.saveButton = new JButton("Salva");
+		
+		this.add(saveButton, BorderLayout.WEST);
+		this.add(textToolbar, BorderLayout.CENTER);
+	}
+	
+	private void initListeners() {
+		this.saveButton.addActionListener(e -> {
+			controller.saveNotes();
+		});
 	}
 
 }

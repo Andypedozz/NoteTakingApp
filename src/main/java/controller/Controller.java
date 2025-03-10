@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.Model;
+import model.Note;
 import model.Page;
 import sqllite.SQLiteHelper;
 import view.View;
@@ -29,7 +30,7 @@ public class Controller {
 	}
 	
 	public void start() {
-//		createDatabase();
+		createDatabase();
 		this.model = new Model();
 		loadData();
 		this.view = new View();
@@ -80,6 +81,13 @@ public class Controller {
 		String prefix = "src//main/resources/";
 		prefix += str;
 		return prefix;
+	}
+
+	public void saveNotes() {
+		HashMap<Integer, Page> pages = this.model.getPages();
+		pages.forEach((id, page) -> {
+			HashMap<Integer, Note> notes = page.getNotes();
+		});
 	}
 	
 }
