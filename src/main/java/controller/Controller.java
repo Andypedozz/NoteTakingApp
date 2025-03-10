@@ -85,8 +85,12 @@ public class Controller {
 
 	public void saveNotes() {
 		HashMap<Integer, Page> pages = this.model.getPages();
-		pages.forEach((id, page) -> {
+		pages.forEach((pageId, page) -> {
 			HashMap<Integer, Note> notes = page.getNotes();
+			notes.forEach((noteId, note) -> {
+				String noteQuery = "UPDATE Note SET text = "+note.getText()+" WHERE id = "+note.getId()+";";
+				SQLiteHelper.executeQuery(noteQuery);
+			});
 		});
 	}
 	

@@ -78,8 +78,27 @@ public class TextToolbar extends JPanel {
 	    this.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 	}
 	
-	private void initListeners() {
-		
+	public JButton getBoldButton() {
+		return boldButton;
+	}
+	
+	public JButton getItalicButton() {
+		return italicButton;
 	}
 
+	public JButton getUnderlineButton() {
+		return underlineButton;
+	}
+
+	public JButton getColorButton() {
+		return colorButton;
+	}
+
+	public JComboBox<String> getFontSizeBox() {
+		return fontSizeBox;
+	}
+
+	public JComboBox<String> getFontBox() {
+		return fontBox;
+	}
 }

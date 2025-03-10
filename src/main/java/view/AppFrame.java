@@ -25,8 +25,12 @@ public class AppFrame extends JFrame {
 		this.getContentPane().add(pagesPanel, BorderLayout.CENTER);
 		this.revalidate();
 	}
-	
-	private void initListeners() {
-		
+
+	public MyToolBar getToolBar() {
+		return toolBar;
+	}
+
+	public PagesPanel getPagesPanel() {
+		return pagesPanel;
 	}
 }

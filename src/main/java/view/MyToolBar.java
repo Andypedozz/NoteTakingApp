@@ -15,6 +15,7 @@ public class MyToolBar extends JPanel {
 	
 	public MyToolBar() {
 		init();
+		initListeners();
 	}
 
 	private void init() {
@@ -33,4 +34,7 @@ public class MyToolBar extends JPanel {
 		});
 	}
 
+	public TextToolbar getTextToolbar() {
+		return textToolbar;
+	}
 }

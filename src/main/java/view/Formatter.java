@@ -55,10 +55,10 @@ public class Formatter {
                 handleBulletPoint(e);
             }
         });
-        textPane.addCaretListener(this::updateStyleState);
+        textPane.addCaretListener(e -> updateStyleState(e));
 	}
 	
-	private void toggleStyle(Object style) {
+	public void toggleStyle(Object style) {
         int start = textPane.getSelectionStart();
         int end = textPane.getSelectionEnd();
         StyledDocument doc = textPane.getStyledDocument();
@@ -96,7 +96,7 @@ public class Formatter {
         }
     }
 	
-    private void changeFontSize(int delta) {
+    public void changeFontSize(int delta) {
         int start = textPane.getSelectionStart();
         int end = textPane.getSelectionEnd();
         StyledDocument doc = textPane.getStyledDocument();
@@ -140,7 +140,7 @@ public class Formatter {
         }
     }
     
-    private void updateStyleState(CaretEvent e) {
+    public void updateStyleState(CaretEvent e) {
         int pos = textPane.getCaretPosition();
         if (pos > 0) {
             StyledDocument doc = textPane.getStyledDocument();

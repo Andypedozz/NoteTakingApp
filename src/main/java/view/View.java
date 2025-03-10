@@ -7,7 +7,7 @@ import com.jthemedetecor.OsThemeDetector;
 
 public class View {
 	
-	private AppFrame frame;
+	private static AppFrame frame;
 	
 	public void launchFrame() {
 	    try {
@@ -20,10 +20,10 @@ public class View {
 	    catch (Exception e) {
 	    	e.printStackTrace();
 	    }
-		this.frame = new AppFrame();
+		frame = new AppFrame();
 	}
 
-	public AppFrame getFrame() {
+	public static AppFrame getFrame() {
 		return frame;
 	}
 }

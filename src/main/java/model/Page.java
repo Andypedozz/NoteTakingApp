@@ -19,6 +19,7 @@ public class Page {
 		this.creationDate = creationDate;
 		this.lastModifiedDate = lastModifiedDate;
 		this.index = index;
+		this.notes = new HashMap<Integer, Note>();
 	}
 	
 	public static Page parsePage(Map<String, Object> map) {
