@@ -1,6 +1,9 @@
 package view;
 
 import javax.swing.UIManager;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.jthemedetecor.OsThemeDetector;
 
 public class View {
 	
@@ -8,7 +11,11 @@ public class View {
 	
 	public void launchFrame() {
 	    try {
-	        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+	    	if (OsThemeDetector.getDetector().isDark()) {
+	    		UIManager.setLookAndFeel(new FlatDarkLaf());
+	    	} else {
+	    		UIManager.setLookAndFeel(new FlatLightLaf());
+	    	}
 	    } 
 	    catch (Exception e) {
 	    	e.printStackTrace();

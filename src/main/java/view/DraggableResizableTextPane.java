@@ -25,8 +25,7 @@ import javax.swing.text.StyledDocument;
 public class DraggableResizableTextPane extends JPanel {
 	
 	private static final int BORDER_SIZE = 10;
-	private static final Color BORDER_COLOR = new Color(217, 217, 217);
-	private JTextPane textPane;
+	private UndoTextPane textPane;
 	private JScrollPane scrollPane;
 	private boolean resizing;
 	private boolean dragging;
@@ -36,10 +35,10 @@ public class DraggableResizableTextPane extends JPanel {
 	
 	public DraggableResizableTextPane() {
 		this.setLayout(new BorderLayout());
-		this.textPane = new JTextPane();
+		this.textPane = new UndoTextPane();
 		this.scrollPane = new JScrollPane(textPane);
 		this.add(scrollPane);
-		this.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, BORDER_SIZE));
+		this.setBorder(BorderFactory.createEmptyBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
 		initListeners();
 	}
 	
