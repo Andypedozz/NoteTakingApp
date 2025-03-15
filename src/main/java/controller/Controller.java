@@ -69,12 +69,23 @@ public class Controller {
 	
 	private void loadData() {
 		List<Map<String, Object>> pages = SQLiteHelper.executeGetQuery("SELECT * FROM Page");
+		List<Map<String, Object>> pagesNotes = SQLiteHelper.executeGetQuery("SELECT * FROM PageNote");
 		
 		// Load pages
 		for(Map<String, Object> map : pages) {
 			Page page = Page.parsePage(map);
 			this.model.getPages().put(page.getId(), page);
 		}
+		
+		// Load notes
+		HashMap<Integer, Page> pagesList = this.model.getPages();
+		pagesList.forEach((pageId, page) -> {
+			List<Map<String, Object>> notes = SQLiteHelper.executeGetQuery("SELECT * FROM Note WHERE id IN (SELECT idPage FROM PageNote WHERE idPage = "+pageId+");");
+			notes.forEach(map -> {
+				Note note = Note.parseNote(map);
+				model.getPages().get(pageId).getNotes().put(note.getId(), note);
+			});
+		});
 	}
 	
 	private String getPath(String str) {

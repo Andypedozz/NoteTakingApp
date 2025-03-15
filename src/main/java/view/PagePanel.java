@@ -4,6 +4,8 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -19,28 +21,46 @@ public class PagePanel extends JPanel {
 	
 	private Controller controller;
 	private JScrollPane scrollPane;
-	private JPanel notesPanel;
+	private ZoomablePanel notesPanel;
+	private int pageNumber;
 	
-	public PagePanel() {
+	public PagePanel(int pageNumber) {
+		super();
+		this.controller = Controller.getInstance();
+		this.pageNumber = pageNumber;
 		init();
+		loadNotes();
 		initListeners();
 	}
 	
 	private void init() {
 		this.setLayout(new GridLayout(1,1));
-		this.notesPanel = new JPanel();
+		this.notesPanel = new ZoomablePanel();
 		this.notesPanel.setLayout(null);
 		this.scrollPane = new JScrollPane(notesPanel);
-		this.scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		this.scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		this.add(scrollPane);
 	}
 	
-	public void addNote(Note note, Point point) {
-		
+	private void loadNotes() {
+		HashMap<Integer, Note> notes = this.controller.getPages().get(pageNumber).getNotes();
+		notes.forEach((noteId, note) -> {
+			addNote(note);
+		});
 	}
 	
-	public void addNote(Point point) {
+	public void addNote(Note note) {
+		Point point = new Point(note.getPositionX(),note.getPositionY());
+		Point shifted = point;
+		NotePanel notePanel = new NotePanel();
+		notePanel.setBounds((int) shifted.getX(), (int) shifted.getY(), NEW_NOTE_WIDTH, NEW_NOTE_HEIGHT);
+		this.notesPanel.add(notePanel);
+		this.notesPanel.revalidate();
+		this.revalidate();
+	}
+	
+	public void addNewNote(Point point) {
 		Point shifted = shiftCoordinates(point);
 		NotePanel notePanel = new NotePanel();
 		notePanel.setBounds((int) shifted.getX(), (int) shifted.getY(), NEW_NOTE_WIDTH, NEW_NOTE_HEIGHT);
@@ -58,7 +78,7 @@ public class PagePanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(SwingUtilities.isLeftMouseButton(e)) {
-					addNote(e.getLocationOnScreen());
+					addNewNote(e.getLocationOnScreen());
 				}
 			}
 		});

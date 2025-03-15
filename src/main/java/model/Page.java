@@ -68,10 +68,6 @@ public class Page {
 		return notes;
 	}
 	
-	public void addNote(Note note) {
-		
-	}
-	
 	public void removeNote(Note note) {
 		
 	}

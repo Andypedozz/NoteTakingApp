@@ -20,7 +20,7 @@ public class PagesPanel extends JTabbedPane {
 		this.pagePanels = new LinkedList<PagePanel>();
 		HashMap<Integer, Page> pages = this.controller.getPages();
 		pages.forEach((key, value) -> {
-			PagePanel pagePanel = new PagePanel();
+			PagePanel pagePanel = new PagePanel(key);
 			this.pagePanels.add(pagePanel);
 			this.addTab(value.getTitolo(), pagePanel);
 		});
