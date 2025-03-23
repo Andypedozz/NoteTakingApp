@@ -69,7 +69,6 @@ public class Controller {
 	
 	private void loadData() {
 		List<Map<String, Object>> pages = SQLiteHelper.executeGetQuery("SELECT * FROM Page");
-		List<Map<String, Object>> pagesNotes = SQLiteHelper.executeGetQuery("SELECT * FROM PageNote");
 		
 		// Load pages
 		for(Map<String, Object> map : pages) {

@@ -1,14 +1,15 @@
 package view;
 
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 
 import controller.Controller;
@@ -21,7 +22,7 @@ public class PagePanel extends JPanel {
 	
 	private Controller controller;
 	private JScrollPane scrollPane;
-	private ZoomablePanel notesPanel;
+	private JPanel notesContainer;
 	private int pageNumber;
 	
 	public PagePanel(int pageNumber) {
@@ -34,13 +35,15 @@ public class PagePanel extends JPanel {
 	}
 	
 	private void init() {
-		this.setLayout(new GridLayout(1,1));
-		this.notesPanel = new ZoomablePanel();
-		this.notesPanel.setLayout(null);
-		this.scrollPane = new JScrollPane(notesPanel);
-		this.scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		this.add(scrollPane);
+		setLayout(new GridLayout(1,1));
+		
+		notesContainer = new JPanel(null);
+		
+		scrollPane = new JScrollPane(notesContainer);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		add(scrollPane);
 	}
 	
 	private void loadNotes() {
@@ -54,27 +57,41 @@ public class PagePanel extends JPanel {
 		Point point = new Point(note.getPositionX(),note.getPositionY());
 		Point shifted = point;
 		NotePanel notePanel = new NotePanel();
+		notePanel.setText(note.getText());
 		notePanel.setBounds((int) shifted.getX(), (int) shifted.getY(), NEW_NOTE_WIDTH, NEW_NOTE_HEIGHT);
-		this.notesPanel.add(notePanel);
-		this.notesPanel.revalidate();
-		this.revalidate();
+		notesContainer.add(notePanel);
+		notesContainer.revalidate();
+		notesContainer.repaint();
+		updateContainerSize();
 	}
 	
 	public void addNewNote(Point point) {
 		Point shifted = shiftCoordinates(point);
 		NotePanel notePanel = new NotePanel();
 		notePanel.setBounds((int) shifted.getX(), (int) shifted.getY(), NEW_NOTE_WIDTH, NEW_NOTE_HEIGHT);
-		this.notesPanel.add(notePanel);
-		this.notesPanel.revalidate();
-		this.revalidate();
+		notesContainer.add(notePanel);
+		notesContainer.revalidate();
+		notesContainer.repaint();
+		updateContainerSize();
 	}
+	
+    private void updateContainerSize() {
+        int maxWidth = 0, maxHeight = 0;
+        for (Component comp : notesContainer.getComponents()) {
+            Rectangle bounds = comp.getBounds();
+            maxWidth = Math.max(maxWidth, bounds.x + bounds.width);
+            maxHeight = Math.max(maxHeight, bounds.y + bounds.height);
+        }
+        notesContainer.setPreferredSize(new Dimension(maxWidth, maxHeight));
+        notesContainer.revalidate();
+    }
 	
 	public void removeNote(NotePanel notePanel) {
 			
 	}
 	
 	private void initListeners() {
-		this.notesPanel.addMouseListener(new MouseAdapter() {
+		notesContainer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(SwingUtilities.isLeftMouseButton(e)) {

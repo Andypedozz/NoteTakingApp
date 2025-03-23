@@ -33,6 +33,6 @@ public class NotePanel extends DraggableResizableTextPane {
 		textToolbar.getBoldButton().setSelected(isBold);
 		textToolbar.getItalicButton().setSelected(isItalic);
 		textToolbar.getUnderlineButton().setSelected(isUnderline);
-		textToolbar.getFontBox().setSelectedItem(new Integer(fontSize));
+		textToolbar.getFontBox().setSelectedItem(fontSize);
 	}
 }

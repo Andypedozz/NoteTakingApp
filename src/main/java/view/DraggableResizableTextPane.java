@@ -1,26 +1,15 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Element;
-import javax.swing.text.MutableAttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 
 public class DraggableResizableTextPane extends JPanel {
 	
@@ -50,8 +39,6 @@ public class DraggableResizableTextPane extends JPanel {
 				initialClick = e.getPoint();
 				initialWidth = getWidth();
 				initialHeight = getHeight();
-				int width = getWidth();
-				int height = getHeight();
 				
 				if(isCursorOnRight(e)) {
 					resizing = true;
