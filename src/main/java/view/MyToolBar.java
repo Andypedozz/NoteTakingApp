@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 import controller.Controller;
 
 public class MyToolBar extends JPanel {
-	private Controller controller;
 	private TextToolbar textToolbar;
 	private JButton saveButton;
 	
@@ -17,7 +16,6 @@ public class MyToolBar extends JPanel {
 	}
 
 	private void init() {
-		this.controller = Controller.getInstance();
 		this.setLayout(new BorderLayout());
 		this.textToolbar = new TextToolbar();
 		this.saveButton = new JButton("Salva");
@@ -28,7 +26,7 @@ public class MyToolBar extends JPanel {
 	
 	private void initListeners() {
 		this.saveButton.addActionListener(e -> {
-			controller.saveNotes();
+			Controller.getInstance().saveNotes();
 		});
 	}
 

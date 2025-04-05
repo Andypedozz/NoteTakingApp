@@ -20,14 +20,12 @@ public class PagePanel extends JPanel {
 	private static final int NEW_NOTE_WIDTH = 200;
 	private static final int NEW_NOTE_HEIGHT = 200;
 	
-	private Controller controller;
 	private JScrollPane scrollPane;
 	private JPanel notesContainer;
 	private int pageNumber;
 	
 	public PagePanel(int pageNumber) {
 		super();
-		this.controller = Controller.getInstance();
 		this.pageNumber = pageNumber;
 		init();
 		loadNotes();
@@ -47,7 +45,7 @@ public class PagePanel extends JPanel {
 	}
 	
 	private void loadNotes() {
-		HashMap<Integer, Note> notes = this.controller.getPages().get(pageNumber).getNotes();
+		HashMap<Integer, Note> notes = Controller.getInstance().getPages().get(pageNumber).getNotes();
 		notes.forEach((noteId, note) -> {
 			addNote(note);
 		});

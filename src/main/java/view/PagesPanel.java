@@ -8,7 +8,6 @@ import controller.Controller;
 
 public class PagesPanel extends JTabbedPane {
 	
-	private Controller controller;
 	private LinkedList<PagePanel> pagePanels;
 	
 	public PagesPanel() {
@@ -16,9 +15,8 @@ public class PagesPanel extends JTabbedPane {
 	}
 
 	private void init() {
-		this.controller = Controller.getInstance();
 		this.pagePanels = new LinkedList<PagePanel>();
-		HashMap<Integer, Page> pages = this.controller.getPages();
+		HashMap<Integer, Page> pages = Controller.getInstance().getPages();
 		pages.forEach((key, value) -> {
 			PagePanel pagePanel = new PagePanel(key);
 			this.pagePanels.add(pagePanel);
